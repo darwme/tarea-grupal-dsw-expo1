@@ -32,9 +32,10 @@ def create_app(config_name):
     from .auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint, url_prefix='/auth')
 
-    from .models import User, Role, AnonymousUser, Permission
+    from .models import Role, User, AnonymousUser, Permission
 
     with app.app_context():
         db.create_all()
+        Role.insert_roles()
 
     return app
